@@ -1,452 +1,248 @@
+#settings
+* google translated from japanese
 
+Preset specified manual 2016/04/21 Edition
+It is easy, but it describes the preset. Because it is a plan to put together in the future manual, please forgive often reads Zura is.
 
+Preset A / how to use
 
+Preset file is a text file that is outside the initial setting of the default behavior and layout of as a reader. You can customize the Bibi by editing this. (Format, reality or rather is the object of JavaScript)
 
-プリセット指定マニュアル 2016/04/21 版
-====================================================================================================
+You use to put on bib / i / presets / folder. But, even in the matter of fact somewhere else (also elsewhere server) it does not matter.
 
+bib / i / index.html of the state in which the distribution is calling a bib / i / presets / default.js. By changing this, you can change the preset you want to use. bib / i / index.html also, for example, it is possible to selectively use to copy, rename as bib / i / the-great-book.html, mean that it is possible to selectively use a combination of HTML and presets for each book is.
 
+For customization, at the beginning
 
-かんたんですが、プリセットについて解説します。今後マニュアルにまとめる計画ですので、読みづらさはしばしご容赦ください。
+Or less, but describes the specific designation that you can customize the behavior, many, there are advantages and disadvantages by EPUB of interest. That's why, not fixed uniformly at the Bibi side, I mean that are to be edited as a preset.
 
+But there are also items that can be changed in the button while reading it yourself, or if you want to show the EPUB that you created on your own to the reader, such as when I want to use the BiB / i you customize the look and feel on your own to the reader, to EPUB When specified in the combined style and pre-preset like you style, I think that it is certainly nice.
 
+Definitions of terms used in this document
 
-プリセットとは / つかいかた
-----------------------------------------------------------------------------------------------------
+An item is a file one by one to be displayed.
 
-プリセットファイルとは、リーダとしてのデフォルト挙動やレイアウトの初期設定を外部化したテキストファイルです。
-これを編集することでビビをカスタマイズすることができます。
-（書式は、というか実態は JavaScript のオブジェクトです）
+The "spread" is a block wrapping the item. Reflow specified items will constitute the "spread" in only one it. If the left and right pairs at a fixed layout has been made, although two that will enter the one "spread".
 
-bib/i/presets/ フォルダに入れてつかいます。が、じつはどこか別の場所でも（余所のサーバでも）かまいません。
+"Length", is the direction of travel size. Left and right width when you are traveling in a horizontal direction, refers to if the vertical up and down height. Similarly, "breadth" is, up and down high if horizontal progression, is if the vertical left and right width. And, then those numbers are small state to be referred to as "short", "narrow".
 
-配布している状態の bib/i/index.html は bib/i/presets/default.js を呼び出しています。
-これを変更することで、使用するプリセットを変更することができます。
-bib/i/index.html も、たとえば bib/i/the-great-book.html のように複製・リネームして使い分けることができるので、
-本ごとに HTML とプリセットの組み合わせを使い分けることができるというわけです。
+These definitions are not necessarily being used in general for the EPUB or e-book, please I think the only Bibi term.
 
+Item Description 1: definition section
 
+Does not affect the behavior and display, is the definition of a preset file itself.
 
-カスタマイズについて、はじめに
-----------------------------------------------------------------------------------------------------
+Does not have also been used anywhere at the moment, but Shirezu may put a function of switching a preset from someday control panel, is scheduled is to be used as a label or description in the configuration panel to the Akatsuki.
 
-以下、挙動をカスタマイズできる具体的な指定について説明しますが、
-多くは、対象とする EPUB によって一長一短があります。
-だからこそ、ビビ側で一律に固定せず、プリセットとして編集可能にしてあるというわけです。
+"Preset-name": any name of "name" ... preset
 
-読者自身が読みながらボタンで変更できる項目もありますが、
-ご自身で作成した EPUB を読者に見せたい場合や、
-ご自身で見た目をカスタマイズした BiB/i を読者に使ってもらいたい場合など、
-EPUB に合わせたスタイルやあなたらしいスタイルを予めプリセットで指定しておくと、
-きっとステキだと思います。
+"Preset-description": "description" content of ...... preset description
 
+"Preset-author": "author" ... preset of the author's name
 
-### この文書内で使用される用語の定義
+"Preset-author-href": a link to the "URI" ...... preset author
 
-アイテムとは、表示されるファイルひとつひとつのことです。
+Item Description 1: Basic Configuration
 
-「見開き」とは、アイテムをつつむブロックです。
-リフロー指定のアイテムはそれ１つだけで「見開き」を構成します。
-固定レイアウトで左右ペアが作られている場合は、その２つが１つの「見開き」に入ります。
+You control the very basic behavior of Bibi.
 
-「長さ」は、進行方向サイズのことです。
-水平方向に進行しているときは左右幅、垂直なら上下高を指します。
-同様に「広さ」は、水平進行なら上下高、垂直なら左右幅です。
-そして、それらの数値が小さい状態を「短い」「狭い」ということにします。
+Path to the "bookshelf" ...... bookshelf directory
 
-これらの定義は EPUB もしくは電子書籍について一般に使われているわけではなく、
-あくまでビビ用語だと思ってください。
+To describe the path of bib / / index.html seen from the bookshelf directory. The same relative path root relative path to the bookshelf directory of the web server ( "../bookshelf/" Ya "/ bib / bookshelf /", etc.) does not matter.
 
+As an advanced setting, http the bookshelf directory of the server on which the cross-origin request is permitted (s): You can also write from //. However, the origin of the server, must be included in the end to describe "trustworthy-origins" of this document.
 
+"Reader-view-mode" initial value of ...... display mode (page-turning, horizontal scroll vertical scrolling)
 
-項目の説明１：定義部
-----------------------------------------------------------------------------------------------------
+Page-turning mode If you specify a "paged", side-scrolling mode if "horizontal", to start the display in the vertical scroll mode if "vertical". Because the reader can be changed at any time, or to display only the first in any mode, is that.
 
+"Fix-reader-view-mode" to fix the ...... display mode whether to prevent the change
 
-振る舞いや表示には影響しない、プリセットファイル自体の定義です。
+"Yes", "no", "desktop", you can choose from four of the "mobile". Or later, but this four specified appeared some, it is the same switching conditions.
 
-いまのところどこにも使用されていませんが、
-いつかコントロールパネルからプリセットを切り替える機能をつけるかもしれず、
-その暁には設定パネル内でラベルや説明として使用される予定であります。
+The initial value of this item is "no", we recommend that you leave that. Always When "yes", "desktop" if the time of the personal computer, at the time of the "mobile" if smart phone, the user will not be able to change the display mode, you will not also appear change button. Better to ban depending on the nature of the content will use when it is to improve the user experience.
 
+"Autostart" ...... when pasted, whether to open automatically this without waiting for the click of the play button
 
-### "preset-name": "なまえ" …… プリセットの任意名称
+Bibi but you can use embedded in a web page, and automatically play a large book of the amount of data, you might tend to slow down the process of reading the parent web page.
 
+That said, you do not might want would be if light the automatic playback, you may want to switch the behavior in the personal computer and the smartphone.
 
-### "preset-description": "説明" …… プリセットの内容説明
+So this also, "yes", "no", "desktop", with the value of the "mobile", was as to be switched. If "yes", also always autoplay any time. "No", on the other hand, requires a click / tap the play button always. "Desktop" is, auto-play if the personal computer, the smart phone will require the operation of the play button. "Mobile" is the opposite of "desktop".
 
+"Start-in-new-window" when you press the play button in the ...... Paste state, whether to open in a new window
 
-### "preset-author": "作者" …… プリセットの作者名
+If the time of paste, the play button depending on the setting of the "autostart" is displayed, when you click / tap the Play button, or to play with as it is paste state, is whether the set open in a new window.
 
+This is also "yes", "no", "desktop", "mobile" have become to choose from 4-necked, "yes" is always another window, "no" is always embedded state, "desktop" is if the personal computer embedded if smartphone in a separate window, "mobile" is the opposite, the "desktop".
 
-### "preset-author-href": "URI" …… プリセットの作者へのリンク
+Until very recently, Bibi was the same behavior as always "mobile". I desire to start remains embedded in smartphone I had here and there, but a sufficient performance did not appear to read.
 
+But, since it seems like began to move soon decent, you have to choose at any. However, in the case of a smart phone, it may force the inconvenience to the reader when opened in a smaller frame of the narrow screen. Please try using care well. (The user can fix open from the button in the menu at any time another window. That said)
 
+Or use the "use-slider" ...... page slider
 
-項目の説明１：基本設定
-----------------------------------------------------------------------------------------------------
+When you click / tap the per the middle of the screen is the presence or absence of use of the page slider to come out at the lower end. In a convenient UI that you can jump to the desired position in the book, and is enabled, in the personal computer and also serves as the role of the pseudo-scroll bar at the time of the page turning mode. This is also the setting of "yes", "no", "desktop", "mobile", the initial value is "yes".
 
+Or "use-arrows" page to react to click / tap of ...... the edge of the screen turning using a function
 
-ビビのごく基本的な振る舞いを制御します。
+Bibi is to prepare the page-turning area to the left and right screen, it can now be operated by click / tap. However, when you or they are no longer needed with the own UI to the parent page or app embedded formed a special program, and listed as erasable. This is also the setting of "yes", "no", "desktop", "mobile", the initial value is "yes". Since this a most cases would no longer turned up that there is no, basically we recommend leave the "yes".
 
+Or accept the "use-keys" ...... keyboard operation
 
+When enabled, you can page also move with the cursor keys on the keyboard. This is also the setting of "yes", "no", "desktop", "mobile", the initial value is "desktop". Since the function can not be used in smartphone enabled, we recommend the "desktop" or "no".
 
-### "bookshelf" …… bookshelf ディレクトリまでのパス
+Or turn over in drag / swipe at the time of the "use-swipe" ...... page turning mode
 
-bib/i/index.html からみた bookshelf ディレクトリのパスを記述します。
-同じウェブサーバ内の bookshelf ディレクトリまでの相対パス・ルート相対パス（"../bookshelf/" や "/bib/bookshelf/" など）でもかまいません。
+When enabled, you will be turning swipe at the page-turning mode can be used. This is also the setting of "yes", "no", "desktop", "mobile", the initial value is "yes". However, if this is enabled, you will not be able to select the text in the page-turning mode. In the personal computer, quickly but will work with the release and drag it to the left and right, it might be good to set to "no" Ya "mobile" when you think that it will not do the operation on a PC. (But, I think I am sometimes and try to the user test, and its operation is also a PC person)
 
-高度な設定として、
-クロスオリジンリクエストが許可されているサーバの bookshelf ディレクトリを http(s):// から書くこともできます。
-ただし、そのサーバのオリジンは、この文書の最後に述べる "trustworthy-origins" に含まれていなければなりません。
+"Use-cookie" to save ...... state to Cookie or to reproduce in the next time you open
 
+When enabled, the display mode is saved and page position when that was last opened, the same book will start in the same state the next time. To a particular book, the combination of the present ID that was written in Bibi directory and EPUB meta file (identifier) ​​is used. This is also the setting of "yes", "no", "desktop", "mobile", the initial value is "yes". Since the reason to separate the behavior in the personal computer and the smartphone would not particularly, please choose on whether "yes" or "no". Only the display mode and page position to be recorded, but does not leak or private information to the outside by this feature.
 
-### "reader-view-mode" …… 表示モードの初期値（ページめくり・横スクロール・縦スクロール）
+Expiration date of when you save a "cookie-expires" ...... Cookie (in seconds)
 
-"paged" を指定するとページめくりモード、
-"horizontal" なら横スクロールモード、
-"vertical" なら縦スクロールモードで表示を開始します。
-読者は随時変更できるので、あくまで最初にどのモードで表示するか、ということです。
+Expiration date of when the Cookie is saved to enable the "use-cookie" above. Unit is in seconds, the initial value is 60 * 60 * 24 * 3. In this sense that the 60 × 60 × 24 × 3, 1 hour at 60 times of 60 seconds, one day in the 24-fold, because the three times that, that has become a 3 days. The same thing even need to mention 259200 of pre-multiplied value, but, how is easy to understand better to rose, and. I think that long and keep you in a few days is good. For example, reading only the middle of a reload in a few minutes about if you want to support, please try and so on.
 
+"Ui-font-family" ...... Table of Contents and the font specification of other basic UI
 
-### "fix-reader-view-mode" …… 表示モードを固定して変更を禁止するかどうか
+CSS of the font-family can be specified as such. For example, you want to use that kind of font because the font you place the punctuation marks in the box center in Taiwan is generally, when there are circumstances, such as such, you can specify a default font.
 
-"yes", "no", "desktop", "mobile" の４つから選べます。
-以降、この４つの指定がいくつか登場しますが、同じ切り替え条件です。
+Notes of you, but this does not affect the body. Only, font, such as table of contents to be displayed as Bibi function of.
 
-この項目の初期値は "no" で、そのままにしておくことをオススメします。
-"yes" にするといつも、"desktop" ならパソコンのとき、"mobile" ならスマートフォンのときに、
-ユーザが表示モードを変更できなくなり、変更ボタンも表示されなくなります。
-コンテンツの性質によって禁止したほうがユーザ体験を向上させられるときに使います。
+Item Descriptions 2: display customize book content
 
+"Book-background" ...... under the "spread" background
 
-### "autostart" …… 貼り付け時、再生ボタンのクリックを待たずに自動的に本を開くかどうか
+Behind the white box of the "spread", there is a dark color area. You can change the bottom of the style. CSS of background please leave that. That can also be used, such as the background image.
 
-ビビはウェブページに埋め込んで使えますが、
-データ量の大きい本を自動再生すると、親ウェブページの読み込み処理を遅くしてしまう場合があります。
+"Spread-gap" ...... as the "spread" interval of the "spread"
 
-とはいえ、軽い本なら自動再生してしまいたいかもしれませんし、
-パソコンとスマートフォンで挙動を切り替えたいこともあるでしょう。
+The interval between the "spread" of reflow content. Unit is px.
 
-そこでこれも、"yes", "no", "desktop", "mobile" の値で、切り替えられるようにしました。
-"yes" なら、どんなときもいつも自動再生します。
-"no" は逆に、必ず再生ボタンのクリック／タップを必要とします。
-"desktop" は、パソコンなら自動再生、スマートフォンでは再生ボタンの操作が必要になります。
-"mobile" は "desktop" の逆です。
+Distance of the first and last of the window end "spread" is, this value regardless, will be adjusted the distance between the window end to come in the middle of the window.
 
+Also, in the case of a fixed-layout is automatically adjusted regardless of this value.
 
-### "start-in-new-window" …… 貼り付け状態で再生ボタンを押したとき、新しいウィンドウで開くかどうか
+"Spread-margin" interval of ...... as "spread" window
 
-貼り付け時、"autostart" の設定によって再生ボタンが表示された場合、
-その再生ボタンをクリック／タップしたとき、
-そのまま貼り付け状態で再生するか、新しいウィンドウで開くかどうかの設定です。
+Of the window as the "spread" at the time of the scroll mode, is the interval of the "width" direction (traveling direction and vertical axis of the book). Unit is px. When the page-turning mode, this value is ignored stick exactly to the window.
 
-これも "yes", "no", "desktop", "mobile" の４首から選べるようになっていて、
-"yes" はいつも別ウィンドウ、"no" はかならず埋め込み状態、
-"desktop" はパソコンなら別ウィンドウでスマートフォンなら埋め込み、
-"mobile" は "desktop" の逆、です。
+"Spread-margin-start" is, when the horizontal scroll mode up and down, when the vertical scroll mode is left and right.
 
-ごく最近まで、ビビはいつも "mobile" と同じ挙動でした。
-スマートフォンでも埋め込んだまま起動したいという要望はちらほらとあったのですが、
-読むのに十分なパフォーマンスが出なかったためです。
+"Spread-border-radius" ...... Kado round setting of "spread"
 
-が、どうやらそろそろまともに動くようになったようなので、任意で選べるようにしました。
-ただ、スマートフォンの場合、狭い画面内のさらに小さなフレームで開くと読者に不便を強いるかもしれません。
-よく気をつけて使ってみてください。
-（ユーザは、メニュー内のボタンからいつでも別ウィンドウで開きなおせます。とはいえ）
+Of that you can now with CSS 3, there is a legend that many of the author was most clearly dancing for joy, it is Kado circle specified. You can round the excessive white box of the "spread". CSS of border-radius as it is, please your liking.
 
+The CSS if put a shadow on the "spread-box-shadow" ...... "spread"
 
-### "use-slider" …… ページスライダを使うか
+Arranged in Kad round reportedly spoke with was dancing for joy the authors, drop shadow. It will be shaded in white box of the "spread". CSS of box-shadow is as it is.
 
-画面の真ん中あたりをクリック／タップすると下端に出てくるページスライダの使用有無です。
-本の中の好きな位置にジャンプできる便利な UI で、
-有効になっていると、パソコンではページめくりモードのときに擬似的なスクロールバーの役割も兼ねます。
-これも "yes", "no", "desktop", "mobile" の設定で、初期値は "yes" です。
+Because you might limp a little scroll and add shadows, it might be better not. Please be unnecessary if "none" or "".
 
+"Item-padding-left" / "* -right" / "-top" / "*** - bottom" ...... margin within each item
 
-### "use-arrows" …… 画面端のクリック／タップに反応するページめくり機能を使うか
+Is the margin of the area where the inside, each HTML in the EPUB is drawn in the "spread". All units of the numerical value px (pixels).
 
-ビビは画面左右にページめくり領域を用意して、クリック／タップで操作できるようになっています。
-ただ、特別なプログラムを組んで埋め込まれた親ページやアプリに独自の UI をつけて不要になったりしたときは、
-消せるようにしてあります。
-これも "yes", "no", "desktop", "mobile" の設定で、初期値は "yes" です。
-これがないとめくれなくなってしまう場合がほとんどなので、基本的には "yes" のままをおすすめします。
+Croaker you, but ...... really is I think or not it should say a total of 0. If the author can be controlled by the CSS in EPUB, because should that person is good.
 
+But, iBooks beginning, leading the system to put the uncontrolled margin has dominated the width. Together with such leading system, EPUB you have narrowed or not to set the margin is quite large. This item is for that.
 
-### "use-keys" …… キーボード操作を受け付けるか
+Applied background color and background image to HTML in the EPUB also processed as is reflected in this margin. However, this is ignored when the fixed layout, the margin adjustment by BiB / i does not take place.
 
-有効になっていると、キーボードのカーソルキーでもページ移動ができます。
-これも "yes", "no", "desktop", "mobile" の設定で、初期値は "desktop" です。
-有効にしてもスマートフォンでは使えない機能なので、"desktop" か "no" をおすすめします。
+"Page-breaking" whether or not to enable ...... page break specified [corresponding incomplete]
 
+If true, the page break by the page-break-before and page-break-after of the CSS. The initial value is false.
 
-### "use-swipe" …… ページめくりモードのときにドラッグ／スワイプでめくるか
+...... But, it does not move well. We recommend that you leave the false.
 
-有効になっていると、ページめくりモードでスワイプめくりが使えるようになります。
-これも "yes", "no", "desktop", "mobile" の設定で、初期値は "yes" です。
-ただし、これが有効になっていると、ページめくりモードではテキストの選択ができなくなります。
-パソコンでは、すばやく左右にドラッグして離すと作動しますが、
-パソコンでそんな操作しないだろうと思われるときは "no" や "mobile" に設定するのもいいかもしれません。
-（けれど、ユーザテストをしてみるとたまにいるんですよね、パソコンでもその操作をする人）
+Add any of the CSS / JavaScript content in the "epub-additional-stylesheet" / "epub-additional-script" ...... EPUB
 
+Without having to edit the content in the EPUB, you can add a CSS / JavaScript on all of the items. Want to check the display to add the script for and verification and calibration you want to read at your own style, it is the ability to meet the needs of such.
 
-### "use-cookie" …… 状態を Cookie に保存して次回開いたときに再現するか
+The value you specify as it is the path. However, there is a case that does not work by the various constraints of the browser and the server.
 
-有効になっていると、最後に開いていたときの表示モードとページ位置を保存して、次回も同じ本は同じ状態で開始します。
-本の特定には、ビビのディレクトリとEPUB のメタファイルに書かれた本の ID（identifier）の組み合わせが使われます。
-これも "yes", "no", "desktop", "mobile" の設定で、初期値は "yes" です。
-パソコンとスマートフォンで挙動を分ける理由は特にないと思いますので、"yes" か "no" かで選んでください。
-記録されるのは表示モードとページ位置だけで、この機能によってプライベートな情報が外部に漏れたりはしません。
+Description of item 3: Extension
 
+The Bibi, you have a mechanism that can extend the functionality by adding another file in bib / i / extensions / are available. Such mechanism is generally plug-ins, extensions, but it is said with such enhancements, we have to be referred to as an extension in the Bibi (Bibi is because the girl, it would be nice to ish accessory?).
 
-### "cookie-expires" …… Cookie を保存するときの有効期限（単位：秒）
+Extensions that are shipped at the time of distribution is five. Among them, only Unzipper is enabled by default.
 
-上の "use-cookie" を有効にして Cookie が保存されるときの有効期限です。
-単位は秒で、初期値は 60 * 60 * 24 * 3。
-これは 60 × 60 × 24 × 3 という意味で、60秒の60倍で1時間、その24倍で1日、その3倍なので、つまり3日間となっています。
-あらかじめかけた値の 259200 と書いておいても同じことですが、バラしたほうがわかりやすいかな、と。
-長くても数日程度にしておくのがいいと思います。
-たとえば読んでいる途中のリロードだけに対応したいなら数分程度、などなど試してみてください。
+Basic extension
 
+For example, suppose you have got a new extension named Example.
 
-### "ui-font-family" …… 目次やその他の基本 UI のフォント指定
+Since the extension has become in the folder structure that example / example.js, first, put the example folder in bib / i / extensions / folder.
 
-CSS の font-family そのままで指定できます。
-たとえば、台湾では句読点をボックス中央に配置したフォントが一般的なのでそういうフォントを使いたい、
-などなどの事情があるとき、デフォルトフォントを指定できます。
+Then, in the next line of the line that begins with the preset of "extensions", { "name": "Example", "src": "extensions / example / example.js"}, you add written as such. You should see if there is a designation from the author of the always should add to write extensions. Yes by adding write to all the bundled extensions default.js, Sonouede, what you want to disable by default I've commented out.
 
-注意点なのですが、これは本文には影響しません。
-あくまで、ビビの機能として表示される目次などのフォントです。
+Then, Bibi read in add the extension at startup, the function of the extension is enabled.
 
+The following describes the bundled extension.
 
+"Unzipper" not ...... deployed to handle the (= Zip archived) EPUB
 
-項目の説明２：本の中身の表示カスタマイズ
-----------------------------------------------------------------------------------------------------
+Enabled by default. However, because it is not lodged by the restriction in Internet Explorer, it does not effective even nothing.
 
+EPUB has been archived in Zip format, the browser is usually can not handle files that are in the interior of the Zip archive. By this extension, Bibi will be able to handle even EPUB archive state.
 
-### "book-background" …… 「見開き」の下の背景
+However, since Bibi by the received PC / smart phone needs to be processed to expand, from around the file size EPUB exceeds 10MB, the length of processing time to begin reading is becoming conspicuous. The first place because the heavy and further expand the consuming file transfer time, is that there is no way. Also, I do not is a big difference in the speed of operation Once you have displayed once, such as in the old and less powerful smart phone, you may get stuck is Bibi previously displayed in the processing load of the deployment. In addition, there is a limitation of function in Internet Explorer, you can not open a book of Zip state in Bibi even with this extension.
 
-「見開き」の白い箱のうしろに、暗い色のエリアがあります。そこのスタイルを変更できます。
-CSS の background そのままでどうぞ。つまり背景画像なども使えます。
+So, when you publish a book with the Bibi, we recommend that you pre-deployment. Although this extension I was thinking whether'll keep the disabled in the initial value, the first place the initial development is rather in the basic functions of Bibi much can not be handled only by the remains of the archive state, also, the compressed file in the drag-and-drop also the open, is a useful Bibi benefits, such as in the preview of your own EPUB. By default Yes to enable the why.
 
+Since this extension is a reasonable file size, I think that is also good to keep the disabled If you do not use only deployed this. The amount of data to be read is made lightly, as a result, a little only, time to be able to operate this may become shorter. I said, I is the size that does not reach even 1 photo of nowadays with. Also effective, but there is no longer a process itself to open a deployed this slow.
 
-### "spread-gap" …… 「見開き」と「見開き」の間隔
+You will be able to analyze the behavior of the user in the "Analytics" ...... Google Analytics
 
-リフローコンテンツの「見開き」同士の間隔です。単位は px。
+It is enabled by default. However, "tracking-id" in the Google Analytics tracking ID (format: UA-XXXXXXXX-X) unless the write added together, do nothing.
 
-最初と最後の「見開き」とウィンドウ端の距離は、この値にかかわらず、
-ウィンドウの真ん中に来るようにウィンドウ端との距離が調節されます。
+When it comes to publish a book on the web, how many people is whether you click the Play button, or was clicked which item in the table of contents, or have read to the end, and so, I think that will come in the mood. These are, so that you can record using the event tracking features of Google Analytics. To fit well as OS and access the original language zone to be recorded at the same time as the basic functions of Google Analytics, you will be a read the situation can be different analysis.
 
-また、固定レイアウトの場合はこの値にかかわらず自動調整されます。
+The current is recorded, is the user action listed below. If you have anything you would like to record and analyze In addition, please request more and more to the author.
 
+Play button of the click / tap
+An entry in the table of contents click / tap
+Display of the last page
+You will be able to share "Share" ...... the URL of Bibi URL or embedded parent page that is open the book to the SNS
 
-### "spread-margin" …… 「見開き」とウィンドウの間隔
+It is enabled by default.
 
-スクロールモードのときの「見開き」とウィンドウの、
-「幅」方向（本の進行方向と垂直の軸）の間隔です。単位は px。
-ページめくりもーどのときは、この値は無視されてウィンドウにぴったりくっつきます。
+The book itself, nor the parent page that has been embedded, you will be get to share the URL to Twitter / Facebook / Google+.
 
-"spread-margin-start" は、
-横スクロールモードのときは上下、縦スクロールモードのときは左右です。
+To be able to use the position and range specification of "EPUBCFI" ...... EPUBCFI specification
 
+It is disabled by default.
 
-### "spread-border-radius" …… 「見開き」のカド丸設定
+EPUBCFI is, in the EPUB composed of multiple files, is a mechanism that allows you to specify what what th character from the character position, such as position and range of a particular paragraph of a particular file. Makes it easier to or communicated to the people in the link, such as "this about this is written here in this book." It can also be used, such as paper of reference.
 
-CSS 3 でできるようになったことのうち、
-多くのウェブ制作者がもっともわかりやすく小躍りしたという言い伝えがある、カド丸指定です。
-「見開き」の白い箱のカドを丸めることができます。
-CSS の border-radius そのままで、お好みでどうぞ。
+EPUB viewer is desirably correspond to EPUBCFI, because it is convenient if you use the actual well or Bibi also partially corresponding How can ...... format tried it because it felt that "It 's not something that can be human to read and write", specification itself There are not used much. This plug-in is also fully compatible give up of features that have been prepared to the specifications, we stopped developed in response only to the specified position (not handle the range specification).
 
+So, by default, Yes to turn off and commented out, does not this extension is read. Please remove the comment out when you want to enable.
 
-### "spread-box-shadow" …… 「見開き」に影を付けるなら CSS を
+The Bibi, Yes wearing a separate function to open by specifying in the middle of a book without using EPUBCFI. It is a unique feature, not the basic specifications of EPUB, but can now be specified in a more straightforward simple formatting. Because it is a separate commentary plans, Fun to.
 
-カド丸に並びウェブ制作者を小躍りさせたと語り伝えられる、ドロップシャドウ。
-「見開き」の白い箱に影をつけられます。
-CSS の box-shadow そのままです。
+So the reflow version can overlay displayed on the book "OverReflow" ...... fixed layout
 
-影を付けるとすこしスクロールがもたつくかもしれませんので、
-ないほうがいいかもしれませんね。不要なら "none" もしくは "" としてください。
+It is disabled by default.
 
+Since this is an extension of fairly developers, and omit the description. People who thought, "interesting" in the example used below, please ask you a question directly. The EPUB itself we need to make for this plug-in, but once, within the range that is allowed in the EPUB specification.
 
-### "item-padding-left" / "****-right" / "****-top" / "****-bottom" …… 各アイテム内の余白
+Example of use: https://pan.press/sinap/journal/SINAP-Journal_Summer-2015/
 
-「見開き」の内側、EPUB 内の各 HTML が描画される領域までの余白です。
-数値の単位はすべて px（ピクセル）。
+Adjust the typesetting of "JaTEx" ...... Japanese vertical writing reflow content
 
-グチですが……ホントは全部 0 でいいはずじゃないかと思うんです。
-EPUB 内の CSS で作者が制御できるなら、その方がいいはずだから。
+It is disabled by default.
 
-でも、iBooks はじめ、制御不能な余白をつけるリーディングシステムが幅を利かせています。
-そうしたリーディングシステムに合わせて、余白を設定していないか狭めにしている EPUB はかなり多いです。
-この項目はそのためにあります。
+It was named in the stands for Japanese Typesetting Extra. Japanese typesetting expansion, means such. Automatic mark-up and of parentheses enclosing scope and about things, provides automatic control, such as hanging punctuation. How to use it is difficult, if not finely tuned together with the making of the book, have a significant impact on the operating speed. Since this is also an extension of fairly developers, and omit the description.
 
-EPUB 内の HTML に適用された背景色・背景画像もこの余白に反映されるように処理しています。
-ただし、本が固定レイアウトのときは無視され、BiB/i による余白調整は行われません。
+Example of use: https://pan.press/seikaisha/fictions/sekaisouzou-kabushikigaisha-1/
 
+Item Description 4: (It is recommended that you do not change as long as the common use) Advanced Settings
 
-### "page-breaking" …… 改ページ指定を有効にするかどうか【対応不完全】
+Origin to allow as "trustworthy-origins" ...... bookshelf installation location and Message source of
 
-true にすると、CSS の page-break-before と page-break-after によって改ページを行います。
-初期値は false です。
+If necessary By enumerating the external origin, or place a bookshelf to the external server, you will be able to or receive an operation instruction in the Message from another server. Without writing anything, the origin of the server that Bibi itself is placed will be allowed.
 
-……でも、うまく動いていません。false のままにしておくことをオススメします。
+For example, If you add the "https://dl.dropboxusercontent.com" here, you will be able to or read EPUB of Dropbox from your web server. However, it will be able to also be used in order to display the EPUB someone has put in Dropbox shared folder of the people who do not know at all.
 
-
-### "epub-additional-stylesheet" / "epub-additional-script" …… EPUB 内のコンテンツに任意の CSS / JavaScript を追加
-
-EPUB 内のコンテンツを編集することなく、すべてのアイテムに CSS / JavaScript を追加できます。
-ご自分のスタイルで読みたい・検証や校正のためのスクリプトを追加して表示確認したい、などの要望に応える機能です。
-
-値には、パスをそのまま指定します。
-ただし、ブラウザやサーバの様々な制約によって動かない場合があります。
-
-
-
-項目の説明３：エクステンション
-----------------------------------------------------------------------------------------------------
-
-
-ビビには、別のファイルを bib/i/extensions/ に追加して機能を拡張できる仕組みが用意されています。
-こういう仕組みは一般にプラグイン、エクステンション、機能拡張などといわれますが、
-ビビではエクステンションと呼ぶことにしました（ビビは女の子なので、アクセサリっぽいのがいいでしょう？）。
-
-配布時に同梱している拡張機能は５つ。
-そのうち、Unzipper のみがデフォルトで有効になっています。
-
-
-### エクステンションの基本
-
-たとえば、Example という名前のあたらしいエクステンションを手に入れたとします。
-
-そのエクステンションは example/example.js というフォルダ構成になっていますので、
-まず、example フォルダを bib/i/extensions/ フォルダに入れます。
-
-次に、プリセットの "extensions" で始まる行の次の行に、
-{ "name": "Example", "src": "extensions/example/example.js" },
-などと書き足します。
-どう書き足すべきかは必ずエクステンションの作者から指定があるはずです。
-同梱エクステンションについてはすべて default.js に書き足してあり、そのうえで、デフォルトで無効にしたいものはコメントアウトしておきました。
-
-すると、ビビは起動時にそのエクステンションを追加で読み込み、
-エクステンションの機能が有効になります。
-
-以下、同梱エクステンションについて説明します。
-
-
-### "Unzipper" …… 展開していない（＝ Zip アーカイブ済みの）EPUB を扱えるようにする
-
-デフォルトで有効。ただし、Internet Explorer では制限によりつかえないため、有効でもなにもしません。
-
-EPUB は Zip フォーマットでアーカイブされており、ブラウザはふつうは Zip アーカイブの内部にあるファイルを扱えません。
-このエクステンションによって、ビビはアーカイブ状態の EPUB も扱えるようになります。
-
-ただし、受信したパソコン／スマートフォンでビビが展開して処理する必要があるため、
-EPUB のファイルサイズが 10MB を超えるあたりから、読み始められるまでの処理時間の長さが顕著になってきます。
-そもそも重くて転送時間のかかるファイルをさらに展開するので、仕方のないことです。
-また、一度表示してしまえば動作速度に大きな差はないのですが、
-古くて非力なスマートフォンなどでは、展開の処理負荷で表示以前にビビが止まってしまうこともあります。
-さらに、Internet Explorer には機能の制限があって、このエクステンションを使ってもビビで Zip 状態の本を開くことはできません。
-
-そこで、ビビを使って本を公開するときには、あらかじめ展開しておくことをおすすめしています。
-このエクステンションも初期値では無効にしておこうかと考えたのですが、
-そもそも開発初期はむしろアーカイブ状態のままでしか扱えなかったくらいビビの基本的な機能で、
-また、圧縮ファイルをドラッグ＆ドロップで開けるのも、自作 EPUB のプレビューなどに便利なビビのメリットです。
-そんなわけでデフォルトでは有効にしてあります。
-
-このエクステンションはそこそこのファイルサイズなので、
-展開済みの本しか使わないのであれば無効にしておくのもいいと思います。
-読み込むデータ量が軽くなり、結果、すこしだけ、
-本を操作できるようになるまでの時間が短くなる可能性があります。
-とはいえ、イマドキの写真１枚にも及ばないようなサイズですけどね。
-有効でも、展開済みの本を開く処理自体が遅くなることはありません。
-
-
-### "Analytics" …… Google Analytics でユーザの行動を分析できるようになる
-
-デフォルトで有効です。
-ただし、"tracking-id" に Google Analytics のトラッキング ID（書式：UA-XXXXXXXX-X）を書き足さない限り、なにもしません。
-
-本をウェブで公開するとなると、
-どれだけの人が再生ボタンをクリックしたか、目次のどの項目がクリックされたか、最後まで読んだか、
-などなど、気になってくると思います。
-これらを、Google Analytics のイベントトラッキング機能を使って記録できるようにします。
-Google Analytics の基本機能として同時に記録される OS や アクセス元言語圏などなども合わせて、
-読まれた状況をさまざまに分析できるようになります。
-
-現在記録されるのは、下に挙げるユーザ行動です。ほかに記録・分析したいことがあれば、作者にどんどん要望をください。
-
-* 再生ボタンのクリック／タップ
-* 目次項目のクリック／タップ
-* 最後のページの表示
-
-
-### "Share" …… その本を開いているビビの URL または埋め込まれた親ページの URL を SNS にシェアできるようになる
-
-デフォルトで有効です。
-
-その本そのものも、埋め込まれた親ページも、Twitter / Facebook / Google+ に URL をシェアしてもらえるようになります。
-
-
-### "EPUBCFI" …… EPUBCFI 仕様の位置・範囲指定を利用できるようにする
-
-デフォルトでは無効です。
-
-EPUBCFI は、複数ファイルで構成される EPUB 内の、
-特定ファイルの特定段落の何文字目から何文字目、といった位置・範囲を指定することができる仕組みです。
-「これこれについてはこの本のここにかいてあります」といったリンクで人に伝えたりしやすくなります。
-論文の引用などにも使えますね。
-
-EPUB ビューワは EPUBCFI に対応していることが望ましく、
-実際うまくつかえば便利なのでビビも部分的に対応してみたのですが……
-書式が「人間の読み書きできるもんじゃねえ」という感じだからか、
-仕様自体があまりつかわれていません。
-このプラグインも、仕様に用意された機能の完全対応は諦めて、位置の指定のみに対応して開発が止まっています（範囲指定を扱えません）。
-
-というわけで、デフォルトではコメントアウトしてオフにしてあり、このエクステンションは読み込まれません。
-有効にしたいときはコメントアウトを外してください。
-
-ビビには、EPUBCFI を使わなくても本の途中を指定して開く機能を別につけてあります。
-それは EPUB の基本仕様ではなく独自機能ですが、もっとわかりやすく簡単な書式で指定できるようになっています。
-別途解説予定ですので、おたのしみに。
-
-
-### "OverReflow" …… 固定レイアウトの本にリフローバージョンをオーバレイ表示できるようになる
-
-デフォルトでは無効です。
-
-これはかなり開発者向けのエクステンションなので、説明を省略します。
-下の使用例で「おもしろそう」と思った人は、直接ご質問ください。
-EPUB 自体をこのプラグイン用に作る必要があるのですが、一応、EPUB 仕様に許された範囲内です。
-
-使用例： https://pan.press/sinap/journal/SINAP-Journal_Summer-2015/
-
-
-### "JaTEx" …… 日本語縦書きリフローコンテンツの組版をととのえる
-
-デフォルトでは無効です。
-
-Japanese Typesetting Extra の略で命名しました。日本語組版拡張、といった意味です。
-括弧囲み範囲や約物の自動マークアップや、句読点ぶら下がりなどの自動制御を提供します。
-使いかたが難しく、本の作りと合わせて細かくチューニングしないと、動作速度に大きく影響します。
-これもかなり開発者向けのエクステンションなので、説明を省略します。
-
-使用例： https://pan.press/seikaisha/fictions/sekaisouzou-kabushikigaisha-1/
-
-
-
-項目の説明４：高度な設定（普通の使い方をするかぎり変更しないことをおすすめします）
-----------------------------------------------------------------------------------------------------
-
-"trustworthy-origins" …… bookshelf 設置場所や Message の送信元として許可するオリジン
-
-必要であれば外部のオリジンを列挙することで、
-bookshelf を外部サーバに置いたり、別サーバからの Message で動作指示を受け取ったりできるようになります。
-なにも書かなくても、ビビ自体が置かれたサーバのオリジンは許可されます。
-
-たとえばここに "https://dl.dropboxusercontent.com" を加えれば、
-自分のウェブサーバから Dropbox の EPUB を読み込んだりできるようになります。
-ただし、まったく知らない誰かがその人の Dropbox 共有フォルダに置いた EPUB を表示させるために使うこともできるようになります。
-
-十分に注意して、ドキュメントルート以下すべてが自分の管理下にあるサーバのみを加えるのがいいと思います。
-
-
+With caution, all of the following documents routes I think that is good to add the only server that is under your control.
